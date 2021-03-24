@@ -1,0 +1,59 @@
+﻿
+@model List<Article>
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+
+@foreach (var article in Model)
+{
+    <div class="row" id="@article.Id">
+        <div class="card" style="width: 90%;">
+            <div class="card-body">
+                <h5 class="card-title">@article.Name</h5>
+                <h6 class="card-subtitle mb-2 text-muted"></h6>
+                <p class="card-text">
+                    @if (article.Text.Length > 100)
+                    {
+
+                        article.Text = article.Text.Substring(0, 97) + "...";
+                    }
+                    @article.Text
+                </p>
+
+                <p class="card-text" style="text-align:right">Authors count: @article.Authors.Count</p>
+
+                <!----
+                <a href="#" class="">Card link</a>
+                <a href="#" class="card-link">Another link</a>
+                --->
+                <div style="text-align:right">
+                    <a asp-controller="Home" asp-action="Article" asp-route-id="@article.Id" class="btn btn-success">Read More</a>
+                    <a asp-controller="Home" asp-action="EditArticle" asp-route-id="@article.Id" class="btn btn-secondary">Edit</a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+}
+
+<!----
+<div class="row">
+    <div class="card" style="width: 18rem;">
+        <div class="card-body">
+            <h5 class="card-title">Card title</h5>
+            <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            <a href="#" class="card-link">Card link</a>
+            <a href="#" class="card-link">Another link</a>
+        </div>
+    </div>
+</div>
+
+<!----
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>
+---->

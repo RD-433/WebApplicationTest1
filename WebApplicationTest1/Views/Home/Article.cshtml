@@ -1,0 +1,28 @@
+﻿@model Article
+
+@{
+    ViewData["Title"] = "Article";
+}
+
+<div class="row" id="@Model.Id">
+    <div class="card" style="width: 90%;">
+        <div class="card-body">
+            <h5 class="card-title">@Model.Name</h5>
+            <h6 class="card-subtitle mb-2 text-muted"></h6>
+            <p class="card-text">
+                @Model.Text
+            </p>
+
+            @foreach (var author in Model.Authors)
+	        {
+                <p class="card-text" style="text-align:right">@author.Author.Name</p>    
+	        }
+        <div style="text-align:right">
+            <a asp-controller="Home" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-secondary">Edit</a>
+            <a asp-controller="Home" asp-action="Index" class="btn btn-secondary">Back To Home Page</a>
+        </div>
+
+        </div>
+    </div>
+</div>
+

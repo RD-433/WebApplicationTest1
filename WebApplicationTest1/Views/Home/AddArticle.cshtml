@@ -1,0 +1,63 @@
+﻿<!----using MultipleModelInOneView;--->
+@model DualDataAuthorCategory
+
+
+@{
+    ViewData["Title"] = "AddArticle";
+}
+<form asp-controller="Home" asp-action="CreateArticle" method="post">
+    <div class="form-group">
+        <label for="Name">Article Name</label>
+        <input type="text" class="form-control" id="Name" asp-for="ArticleName" placeholder="">
+    </div>
+    <div class="form-group">
+        <label for="Text">Text</label>
+        <textarea class="form-control" id="Text" asp-for="ArticleText" rows="10"></textarea>
+    </div>
+    <div class="" id="SelectDiv">
+        @for (int i = 1; i <= 3; i++)
+        {
+            @if (i == 1)
+            {
+                <div class="form-group" id="Select @i">
+                    <label id="AuthorLabel @i">Author @i</label>
+                    <select id="Author @i" class="form-select" asp-for="AuthorId">
+                        @foreach (var author in Model.Authors)
+                        {
+                            <option value="@author.Id">@author.Name</option>
+                        }
+                    </select>
+                </div>
+            }
+            else
+            {
+                <div class="form-group" id="Select @i" hidden>
+                    <label id="AuthorLabel @i">Author @i</label>
+                    <select id="Author @i" class="form-select" asp-for="AuthorId">
+                        @foreach (var author in Model.Authors)
+                        {
+                            <option value="@author.Id">@author.Name</option>
+                        }
+                    </select>
+                </div>
+            }
+        }
+    </div>
+    <div class="form-group">
+        <input type="button" name="AddAuthor" value="Add Author" onclick="AddSelect()" class="btn btn-outline-primary" />
+        <input type="button" name="RemoveAuthor" value="Remove Author" onclick="RemoveSelect(@Model.Authors.Count)" class="btn btn-outline-primary" />
+    </div>
+    <div class="form-group">
+        <label for="Category">Category</label>
+        <select class="form-select" aria-label="Default select example" asp-for="CategoryId">
+            @foreach (var category in Model.Categories)
+            {
+                <option value="@category.Id">@category.Name</option>
+            }
+        </select>
+    </div>
+    <input type="hidden" id="Id" value="" />
+    <input type="hidden" id="CategoryId" value="" />
+    <button type="submit" class="btn btn-primary">Save</button>
+    <a class="btn btn-secondary" asp-controller="Home" asp-action="Index">Cancel</a>
+</form>
